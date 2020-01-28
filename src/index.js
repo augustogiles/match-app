@@ -67,10 +67,13 @@ const TableObject = o => {
 class Team extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: [],
+      stats: {},
+    };
   }
 
-  componentWillMount() {
+  componentDidMount(){
     fetch("/teams/" + this.props.match.params.index).then(data =>
       this.setState({
         data: data,
@@ -103,7 +106,7 @@ class Weeks extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount(){
     fetch("/weeks").then(data => this.setState({ data: data }));
   }
 
@@ -150,10 +153,12 @@ function computeTable(teams, weeksMatches) {
 class Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      table: [],
+    };
   }
 
-  componentWillMount() {
+  componentDidMount(){
     Promise.all([
       fetch("/teams"),
       fetch("/weeks")
