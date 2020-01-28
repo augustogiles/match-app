@@ -99,8 +99,16 @@ class Weeks extends React.Component {
     super(props);
     this.state = {
       data: [],
-      chosenWeek: parseInt(this.props.match.params.index, 10) // TASK #2 - make matches start at 1 instead of 0
+      chosenWeek: this.getWeek() // TASK #2 - make matches start at 1 instead of 0
     };
+  }
+
+  getWeek() {
+    let index = parseInt(this.props.match.params.index, 10)
+    if (index > 0) {
+      index -= 1;
+    }
+    return index
   }
 
   componentWillMount() {
