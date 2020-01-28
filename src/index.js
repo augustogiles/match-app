@@ -19,7 +19,22 @@ function fetch(path) {
 // TASK #1 - create result line
 const Result = props => {
   const { teams, teamIds, score } = props;
-  return <p>TODO 1</p>;
+  let [homeTeam, visitorTeam] = teams;
+  
+  function boldWinner(){
+    let response = score[0] > score[1] ? 
+      [<b>{teams[0]}</b>, teams[1]] : 
+      [teams[0], <b>{teams[1]}</b>]
+    
+    return response;
+  }
+
+  if (score[0] !== score[1]){
+    [homeTeam, visitorTeam] = boldWinner();    
+  }
+
+  return <p>{homeTeam} {score[0]} vs {score[1]} {visitorTeam} </p>
+
 };
 
 class Results extends React.Component {
