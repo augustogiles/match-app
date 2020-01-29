@@ -33,7 +33,7 @@ const Result = props => {
     [homeTeam, visitorTeam] = boldWinner();    
   }
 
-  return <p>{homeTeam} {score[0]} vs {score[1]} {visitorTeam} </p>
+  return <p><Link to={`/teams/${teamIds[0]}`}>{homeTeam}</Link> {score[0]} vs {score[1]} <Link to={`/teams/${teamIds[1]}`}>{visitorTeam}</Link> </p>
 
 };
 
