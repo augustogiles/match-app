@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import { Results } from './Results/Results' 
+import Team from './Team/Team' 
 import { fetch } from './services/api' 
 
 const TableObject = objects => {
@@ -19,54 +20,54 @@ const TableObject = objects => {
   );
 };
 
-class Team extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      stats: {},
-    };
-  }
+// class Team extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       data: null,
+//       stats: {},
+//     };
+//   }
 
-  componentDidMount(){
-    fetch("/teams/" + this.props.match.params.index).then(data => 
-    {
-        this.setState({
-          data: data,
-          stats: computeTeamStats(data.id, data.results)
-        })
-    });
+//   componentDidMount(){
+//     fetch("/teams/" + this.props.match.params.index).then(data => 
+//     {
+//         this.setState({
+//           data: data,
+//           stats: computeTeamStats(data.id, data.results)
+//         })
+//     });
 
-  }
+//   }
 
-  componentWillReceiveProps(nextProps) {
-    const oldIdData = this.state.data.id;
-    const newIdData = parseInt(nextProps.match.params.index, 10);
-    if (oldIdData !== newIdData) {
-      fetch("/teams/" + newIdData).then(data => 
-        {
-          this.setState({
-            data: data,
-            stats: computeTeamStats(data.id, data.results)
-          })
-        });
-    }
-  }
+//   componentWillReceiveProps(nextProps) {
+//     const oldIdData = this.state.data.id;
+//     const newIdData = parseInt(nextProps.match.params.index, 10);
+//     if (oldIdData !== newIdData) {
+//       fetch("/teams/" + newIdData).then(data => 
+//         {
+//           this.setState({
+//             data: data,
+//             stats: computeTeamStats(data.id, data.results)
+//           })
+//         });
+//     }
+//   }
 
-  render() {
-    const { data } = this.state;
-    if (!data) return <div>loading...</div>;
+//   render() {
+//     const { data } = this.state;
+//     if (!data) return <div>loading...</div>;
 
-    return (
-      <div className="team">
-        <h1>Team {data.name}</h1>
+//     return (
+//       <div className="team">
+//         <h1>Team {data.name}</h1>
 
-        <h2>Games</h2>
-        <Results results={data.results} />
-      </div>
-    );
-  }
-}
+//         <h2>Games</h2>
+//         <Results results={data.results} />
+//       </div>
+//     );
+//   }
+// }
 
 class Weeks extends React.Component {
   constructor(props) {
@@ -118,11 +119,6 @@ class Weeks extends React.Component {
       </div>
     );
   }
-}
-
-// TASK #3 - compute team stats
-function computeTeamStats(id, results) {
-  return {};
 }
 
 // TASK #4 - create a table of results
