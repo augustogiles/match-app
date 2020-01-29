@@ -41,22 +41,22 @@ class Results extends React.Component {
   render() {
     return (
       <div className="results">
-        {this.props.results.map((r, i) => {
-          return <Result key={i} {...r} />;
+        {this.props.results.map((result) => {
+          return <Result key={`${result.teams[0]}_${result.teams[1]}`} {...result} />;
         })}
       </div>
     );
   }
 }
 
-const TableObject = o => {
+const TableObject = objects => {
   return (
     <table className="team-stats">
       <tbody>
-        {Object.entries(o).map(([k, v]) => (
-          <tr key={k}>
-            <th>{k}</th>
-            <td>{v}</td>
+        {Object.entries(objects).map(([key, value]) => (
+          <tr key={key}>
+            <th>{key}</th>
+            <td>{value}</td>
           </tr>
         ))}
       </tbody>
@@ -68,7 +68,7 @@ class Team extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: null,
       stats: {},
     };
   }
@@ -83,15 +83,15 @@ class Team extends React.Component {
   }
 
   render() {
-    const d = this.state.data;
-    if (!d) return <div>loading...</div>;
+    const { data } = this.state;
+    if (!data) return <div>loading...</div>;
 
     return (
       <div className="team">
-        <h1>Team {d.name}</h1>
+        <h1>Team {data.name}</h1>
 
         <h2>Games</h2>
-        <Results results={d.results} />
+        <Results results={data.results} />
       </div>
     );
   }
@@ -127,16 +127,17 @@ class Weeks extends React.Component {
   }
 
   render() {
-    if (!this.state.data.length) return <div>loading...</div>;
+    let { data } = this.state;
+    if (!data.length) return <div>loading...</div>;
 
     return (
       <div className="weeks">
         <h1>Weeks</h1>
         <div className="week-chooser">
           <ul className="unstyled">
-            {this.state.data.map((w, i) => (
-              <li key={i}>
-                <Link to={`/weeks/${i}`}>{i}</Link>
+            {this.state.data.map((week, weekNumber) => (
+              <li key={weekNumber}>
+                <Link to={`/weeks/${weekNumber}`}>{weekNumber}</Link>
               </li>
             ))}
           </ul>
