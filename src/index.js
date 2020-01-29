@@ -74,12 +74,28 @@ class Team extends React.Component {
   }
 
   componentDidMount(){
-    fetch("/teams/" + this.props.match.params.index).then(data =>
-      this.setState({
-        data: data,
-        stats: computeTeamStats(data.id, data.results)
-      })
-    );
+    fetch("/teams/" + this.props.match.params.index).then(data => 
+    {
+        this.setState({
+          data: data,
+          stats: computeTeamStats(data.id, data.results)
+        })
+    });
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const oldIdData = this.state.data.id;
+    const newIdData = parseInt(nextProps.match.params.index, 10);
+    if (oldIdData !== newIdData) {
+      fetch("/teams/" + newIdData).then(data => 
+        {
+          this.setState({
+            data: data,
+            stats: computeTeamStats(data.id, data.results)
+          })
+        });
+    }
   }
 
   render() {
@@ -119,8 +135,8 @@ class Weeks extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const a = this.state.chosenWeek;
-    const b = parseInt(nextProps.match.params.index, 10);
+    const a = this.state.data.id;
+    const b = parseInt(nextProps.match.params.index);
     if (a !== b) {
       this.setState({ chosenWeek: b });
     }
