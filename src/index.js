@@ -3,54 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import Weeks  from './Weeks/Weeks' 
 import Team from './Team/Team' 
-import { fetch } from './services/api' 
-
-const TableObject = objects => {
-  return (
-    <table className="team-stats">
-      <tbody>
-        {Object.entries(objects).map(([key, value]) => (
-          <tr key={key}>
-            <th>{key}</th>
-            <td>{value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-// TASK #4 - create a table of results
-function computeTable(teams, weeksMatches) {
-  return [];
-}
-
-class Table extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      table: [],
-    };
-  }
-
-  componentDidMount(){
-    Promise.all([
-      fetch("/teams"),
-      fetch("/weeks")
-    ]).then((teams, weeksMatches) => {
-      this.setState({
-        table: computeTable(teams, weeksMatches)
-      });
-    });
-  }
-
-  render() {
-    const t = this.state.table;
-    if (!t) return <div>loading...</div>;
-
-    return "TODO 4";
-  }
-}
+import Table from './Table/Table' 
 
 const Header = () => (
   <div className="header">
