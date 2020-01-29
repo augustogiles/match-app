@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, HashRouter, Link, Route, DefaultRoute, Switch, Redirect } from 'react-router-dom';
-import superagent from 'superagent';
+import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
 import { Results } from './Results/Results' 
 import { fetch } from './services/api' 
 
@@ -91,10 +90,10 @@ class Weeks extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const a = this.state.data.id;
-    const b = parseInt(nextProps.match.params.index);
-    if (a !== b) {
-      this.setState({ chosenWeek: b });
+    const oldIndex = this.state.data.id;
+    const newIndex = parseInt(nextProps.match.params.index, 10);
+    if (oldIndex !== newIndex) {
+      this.setState({ chosenWeek: newIndex });
     }
   }
 
