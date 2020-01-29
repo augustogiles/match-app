@@ -2,52 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, HashRouter, Link, Route, DefaultRoute, Switch, Redirect } from 'react-router-dom';
 import superagent from 'superagent';
-
-const API = "http://acor.sl.pt:7777";
-
-function fetch(path) {
-  return new Promise((resolve, reject) => {
-    superagent(API + path).end((err, res) => {
-      if (err || !res.ok) {
-        return reject(err);
-      }
-      resolve(res.body);
-    });
-  });
-}
-
-// TASK #1 - create result line
-const Result = props => {
-  const { teams, teamIds, score } = props;
-  let [homeTeam, visitorTeam] = teams;
-  
-  function boldWinner(){
-    let response = score[0] > score[1] ? 
-      [<b>{teams[0]}</b>, teams[1]] : 
-      [teams[0], <b>{teams[1]}</b>]
-    
-    return response;
-  }
-
-  if (score[0] !== score[1]){
-    [homeTeam, visitorTeam] = boldWinner();    
-  }
-
-  return <p><Link to={`/teams/${teamIds[0]}`}>{homeTeam}</Link> {score[0]} vs {score[1]} <Link to={`/teams/${teamIds[1]}`}>{visitorTeam}</Link> </p>
-
-};
-
-class Results extends React.Component {
-  render() {
-    return (
-      <div className="results">
-        {this.props.results.map((result) => {
-          return <Result key={`${result.teams[0]}_${result.teams[1]}`} {...result} />;
-        })}
-      </div>
-    );
-  }
-}
+import { Results } from './Results/Results' 
+import { fetch } from './services/api' 
 
 const TableObject = objects => {
   return (
