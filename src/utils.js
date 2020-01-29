@@ -5,6 +5,6 @@ export function computeTeamStats(id, results) {
 
 
 // TASK #4 - create a table of results
-function computeTable(teams, weeksMatches) {
+export function computeTable(teams, weeksMatches) {
   return [];
 }
