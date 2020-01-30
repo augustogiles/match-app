@@ -1,35 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Link, Route, Switch, Redirect } from 'react-router-dom';
-import Weeks  from './Weeks/Weeks' 
-import Team from './Team/Team' 
-import Table from './Table/Table' 
+import { Routes } from './routes';
 
-const Header = () => (
-  <div className="header">
-    <ul className="unstyled">
-      <li>
-        <Link to="/table">table</Link>
-      </li>
-      <li>
-        <Link to="/weeks/1">weeks</Link>
-      </li>
-    </ul>
-  </div>
-);
+import { Header } from './Header/Header';
 
 const Main = () => (
-  <HashRouter>
+  <Routes>
     <div>
-      <Header />
-      <Switch>
-        <Route path="/weeks/:index" component={Weeks} />
-        <Route path="/teams/:index" component={Team} />
-        <Route path="/table" component={Table} />
-        <Redirect from="/" to="/weeks/1" />
-      </Switch>
+      <Header/>
     </div>
-  </HashRouter>
+  </Routes>
 );
 
 const mountNode = document.querySelector("#root");
