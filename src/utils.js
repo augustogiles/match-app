@@ -55,16 +55,16 @@ function teamStatReducer(teamId, results) {
 
     if(teamIndex !== undefined) {
       let {status, gp, gc} = getGameStatus(teamIndex, result);
-      stats["GP"] += gp
-      stats["GC"] += gc
+      stats["gp"] += gp
+      stats["gc"] += gc
       stats[status] += 1;
       stats["points"] += AWARDS[status];
     }
 
     return stats;
-  }, {"wins": 0, "draws": 0, "losses": 0, "GP": 0, "GC": 0, "GD": 0, "points": 0});
+  }, {"wins": 0, "draws": 0, "losses": 0, "gp": 0, "gc": 0, "gd": 0, "points": 0});
 
-  statsResume["GD"] = statsResume["GP"] - statsResume["GC"]
+  statsResume["gd"] = statsResume["gp"] - statsResume["gc"]
 
   return statsResume;
 }
