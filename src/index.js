@@ -1,15 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Routes } from './routes';
-
+import { HashRouter } from 'react-router-dom';
 import { Header } from './Header/Header';
+import { GlobalStyle } from './Styles/GlobalStyle'
+
+import styled from 'styled-components';
+
+const MainStyled  = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+` ;
 
 const Main = () => (
-  <Routes>
+  <HashRouter>
     <div>
+      <GlobalStyle/>
       <Header/>
+      <MainStyled>
+        <Routes/>
+      </MainStyled>
     </div>
-  </Routes>
+  </HashRouter>
 );
 
 const mountNode = document.querySelector("#root");
