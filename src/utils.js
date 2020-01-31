@@ -51,7 +51,7 @@ function teamStatReducer(teamId, results) {
   results = !!results ? results : [];
   const statsResume = results.reduce((stats, result) => {
 
-    let teamIndex = getTeamIndex(teamId, result);
+    let [teamIndex, teamName] = getTeam(teamId, result);
 
     if(teamIndex !== undefined) {
       let {status, gp, gc} = getGameStatus(teamIndex, result);
@@ -59,10 +59,11 @@ function teamStatReducer(teamId, results) {
       stats["gc"] += gc
       stats[status] += 1;
       stats["points"] += AWARDS[status];
+      stats["name"] = teamName;
     }
 
     return stats;
-  }, {"wins": 0, "draws": 0, "losses": 0, "gp": 0, "gc": 0, "gd": 0, "points": 0});
+  }, {"name": "", "wins": 0, "draws": 0, "losses": 0, "gp": 0, "gc": 0, "gd": 0, "points": 0});
 
   statsResume["gd"] = statsResume["gp"] - statsResume["gc"]
 
@@ -98,5 +99,5 @@ export function computeTable(teams, weeksMatches) {
     return map;
   }, {})
 
-  return allTeamStats;
+  return orderBy(allTeamStats, ['points', 'gd', 'gc'], ['desc']);
 }
