@@ -1,3 +1,5 @@
+import { chain } from 'lodash';
+import {teamsMock, weeksMock} from './Data/mockData'
 
 const AWARDS = {
   "wins": 3,
@@ -72,8 +74,29 @@ export function computeTeamStats(id, results) {
   return teamStatReducer(parseInt(id, 10), results);
 }
 
+function groupMatchesByTeam(teams, weeksMatches) {
+  const allMatchesByTeam = teams.map(teamName => {
+    let teamMatches = chain(weeksMatches)
+                      .flatten()
+                      .filter(match => match.teams.includes(teamName))
+                      .value();
+
+    return [teamName, teamMatches];
+  });
+
+  return allMatchesByTeam;
+}
 
 // TASK #4 - create a table of results
 export function computeTable(teams, weeksMatches) {
-  return [];
+  teams = !!teams ? teams : teamsMock ;
+  weeksMatches = !!weeksMatches ? weeksMatches : weeksMock ;
+
+  let allMatchesByTeam = groupMatchesByTeam(teams, weeksMatches);
+  let allTeamStats = allMatchesByTeam.reduce( (map, [teamName, teamMatches], teamId) => {
+    map[teamName] = teamStatReducer(teamId, teamMatches)
+    return map;
+  }, {})
+
+  return allTeamStats;
 }
