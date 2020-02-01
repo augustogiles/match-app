@@ -1,4 +1,4 @@
-import { chain } from 'lodash';
+import { chain, orderBy } from 'lodash';
 import {teamsMock, weeksMock} from './Data/mockData'
 
 const AWARDS = {
@@ -7,15 +7,15 @@ const AWARDS = {
   "losses": 0,
 }
 
-function getTeamIndex(teamId, result) {
-  let index;
+function getTeam(teamId, result) {
+  let team;
   if(teamId === result.teamIds[0]){
-    index = 0;
+    team = [0, result.teams[0]];
   }else if(teamId === result.teamIds[1]){
-    index = 1;
+    team = [1, result.teams[1]];
   }
 
-  return index;
+  return team;
 }
 
 function getTeamWinnerIndex(result) {
@@ -48,6 +48,7 @@ function getGameStatus(teamIndex, result) {
 }
 
 function teamStatReducer(teamId, results) {
+
   results = !!results ? results : [];
   const statsResume = results.reduce((stats, result) => {
 
@@ -63,15 +64,16 @@ function teamStatReducer(teamId, results) {
     }
 
     return stats;
-  }, {"name": "", "wins": 0, "draws": 0, "losses": 0, "gp": 0, "gc": 0, "gd": 0, "points": 0});
+  }, {"id": '', "name": "", "wins": 0, "draws": 0, "losses": 0, "gp": 0, "gc": 0, "gd": 0, "points": 0});
 
+  statsResume["id"] = teamId;
   statsResume["gd"] = statsResume["gp"] - statsResume["gc"]
 
   return statsResume;
 }
 
 // TASK #3 - compute team stats
-export function computeTeamStats(id, results) {
+export function computeTeamStats(id, results) {  
   return teamStatReducer(parseInt(id, 10), results);
 }
 
@@ -90,6 +92,7 @@ function groupMatchesByTeam(teams, weeksMatches) {
 
 // TASK #4 - create a table of results
 export function computeTable(teams, weeksMatches) {
+
   teams = !!teams ? teams : teamsMock ;
   weeksMatches = !!weeksMatches ? weeksMatches : weeksMock ;
 
