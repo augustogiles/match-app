@@ -13,10 +13,16 @@ export default class Team extends Component {
   componentDidMount(){
     fetch("/teams/" + this.props.match.params.index).then(data => 
     {
-        this.setState({
-          data: data,
-          stats: computeTeamStats(data.id, data.results)
-        })
+      this.setState({
+        data: data,
+        stats: computeTeamStats(data.id, data.results)
+      })
+    }, err => {
+      console.log("alo", err)
+      this.setState({
+        data: null,
+        stats: computeTeamStats(null, null)
+      })
     });
 
   }
