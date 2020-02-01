@@ -1,18 +1,46 @@
 import React, { Component } from 'react';
-import { computeTable } from '../utils'
+import { computeTable } from '../utils';
+import { fetch } from '../services/api';
 
-const TableObject = objects => {
+import {TableStyled, TableRowStyled} from './Table.styled'
+
+const TableObject = (objects, onRowClick) => {
+  
   return (
-    <table className="team-stats">
+    <TableStyled className="team-stats">
+      <thead>
+        <tr>
+          <th className="no-border"/>
+          <th>#</th>
+          <th>Team</th>
+          <th>Won</th>
+          <th>Draw</th>
+          <th>Loss</th>
+          <th>GP</th>
+          <th>GC</th>
+          <th>GD</th>
+          <th>Pts</th>
+          <th className="no-border"/>
+        </tr>
+      </thead>
       <tbody>
-        {Object.entries(objects).map(([key, value]) => (
-          <tr key={key}>
-            <th>{key}</th>
-            <td>{value}</td>
-          </tr>
+        {Object.entries(objects).map(([key, {id, name, wins, draws, losses, gp, gc, gd, points}]) => (
+          <TableRowStyled key={id} onClick={() => onRowClick(id)}>
+            <td className="no-border"/>
+            <td>{parseInt(key, 10) + 1}</td>
+            <td>{name}</td>
+            <td>{wins}</td>
+            <td>{draws}</td>
+            <td>{losses}</td>
+            <td>{gp}</td>
+            <td>{gc}</td>
+            <td>{gd}</td>
+            <td>{points}</td>
+            <td className="no-border"/>
+          </TableRowStyled>
         ))}
       </tbody>
-    </table>
+    </TableStyled>
   );
 };
 
@@ -28,17 +56,26 @@ export default class Table extends Component {
     Promise.all([
       fetch("/teams"),
       fetch("/weeks")
-    ]).then((teams, weeksMatches) => {
+    ]).then(([teams, weeksMatches]) => {
       this.setState({
         table: computeTable(teams, weeksMatches)
+      });
+    }, err => {
+      this.setState({
+        table: computeTable(null, null)
       });
     });
   }
 
+  onRowClick = id =>{
+    this.props.history.push(`teams/${id}`)
+  }
+
   render() {
     const t = this.state.table;
+    console.log(this.props)
     if (!t) return <div>loading...</div>;
 
-    return "TODO 4";
+    return TableObject(t, this.onRowClick);
   }
 }
