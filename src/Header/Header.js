@@ -12,17 +12,12 @@ const HeaderStyled = styled.div `
 
 `;
 
-const HeaderMenu = styled.ul `
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-`;
-
 const HeaderMenuItem = styled.li `
     float: left;
 
     color: ${({selected}) => selected ? '#ffffff;' : '#dddddd;'};
     border-bottom: ${({selected}) => selected ? '2px solid #ffffff;' : 'none;'};
+    background-color: ${({selected}) => selected ? 'rgba(0,0,0,.1);' : 'inherit;'};
 
     a {
       display: block;
@@ -37,33 +32,22 @@ const HeaderMenuItem = styled.li `
     }
 `;
 
-export class Header extends React.Component {
-  state = { 
-    selected: 0
-  };
-
-  changeSelect(selected){
-    this.setState({selected})
-  }
-
-  render(){
-    const { selected } = this.state;
-
+export const Header = () => {
+  let { href } = window.location
+  
     return (
       <HeaderStyled className="header">
-        <HeaderMenu className="unstyled">
+        <ul className="menu">
           <HeaderMenuItem 
-            selected={!selected} 
-            onClick={ () => this.changeSelect(0) }>
+            selected={href.includes('table')} >
             <Link to="/table">TABLE STATUS</Link>
           </HeaderMenuItem>
           <HeaderMenuItem 
-            selected={selected}
-            onClick={ () => this.changeSelect(1) }>
+            selected={href.includes('weeks')}>
             <Link to="/weeks/1">WEEKS</Link>
           </HeaderMenuItem>
-        </HeaderMenu>
+        </ul>
       </HeaderStyled>
     )
-  }
+  
 };
