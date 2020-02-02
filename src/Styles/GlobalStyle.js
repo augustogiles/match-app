@@ -18,5 +18,9 @@ export const GlobalStyle = createGlobalStyle`
       overflow: hidden;
     }
 
+    h1 {
+      margin: 0px;
+    }
+
   }
 `
