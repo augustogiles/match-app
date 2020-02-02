@@ -73,7 +73,6 @@ export default class Table extends Component {
 
   render() {
     const t = this.state.table;
-    console.log(this.props)
     if (!t) return <div>loading...</div>;
 
     return TableObject(t, this.onRowClick);
