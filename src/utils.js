@@ -74,6 +74,10 @@ function teamStatReducer(teamId, results) {
 
 // TASK #3 - compute team stats
 export function computeTeamStats(id, results) {  
+  // let idMock = 3;
+  // id = idMock;
+  // results = resultsMock;
+
   return teamStatReducer(parseInt(id, 10), results);
 }
 
@@ -102,5 +106,5 @@ export function computeTable(teams, weeksMatches) {
     return map;
   }, {})
 
-  return orderBy(allTeamStats, ['points', 'gd', 'gc'], ['desc']);
+  return orderBy(allTeamStats, ['points', 'gd', 'gc'], ['desc', 'desc', 'desc']);
 }
