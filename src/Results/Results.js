@@ -6,13 +6,15 @@ import styled from 'styled-components'
 const ResultsContainerStyled = styled.div `
   margin: 20px auto;
   width: 80%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 `;
 
 const ResultStyled = styled.div `
 
-  text-align: center;
   padding: 20px 16px;
-  margin: 20px 0px;
   color: rgba(0,0,0,.87);
 
   border-radius: 8px;
@@ -28,11 +30,26 @@ const ResultStyled = styled.div `
   }
 `;
 
+const ImgResultStyled = styled.img `
+  width: 24px;
+  height: 24px;
+  margin: 12px;
+`;
+
 const TeamResultStyled = styled(Link)`
   position: relative;
+  bottom: 20px;
   &:hover {
     color: grey;
   }
+`;
+
+const TeamScoreStyled = styled.div `
+  
+  float: right;
+  top: 12px;
+  position: relative;
+  
 `;
 
 const Result = props => {
@@ -47,13 +64,26 @@ const Result = props => {
     return response;
   }
 
+  function getImgUri(id){
+    return `http://acor.sl.pt:7777/logos/${id}.png`;
+  }
+
   if (score[0] !== score[1]){
     [homeTeam, visitorTeam] = boldWinner();    
   }
 
   return (
     <ResultStyled className="result">
-        <TeamResultStyled to={`/teams/${teamIds[0]}`}>{homeTeam}</TeamResultStyled> {score[0]} vs {score[1]} <TeamResultStyled to={`/teams/${teamIds[1]}`}>{visitorTeam}</TeamResultStyled> 
+      <div>
+        <ImgResultStyled src={getImgUri(teamIds[0])}/>
+        <TeamResultStyled to={`/teams/${teamIds[0]}`}>{homeTeam}</TeamResultStyled>
+        <TeamScoreStyled> {score[0]} </TeamScoreStyled>
+      </div>
+      <div>
+        <ImgResultStyled src={getImgUri(teamIds[1])}/>
+        <TeamResultStyled to={`/teams/${teamIds[1]}`}>{visitorTeam}</TeamResultStyled> 
+        <TeamScoreStyled> {score[1]} </TeamScoreStyled>
+      </div>
     </ResultStyled>
   );
 
