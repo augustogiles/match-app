@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0px;
     background-color: #f2f2f2;
 
+    scroll-behavior: smooth;
+
     a { 
       color: inherit; 
       text-decoration: none;
@@ -19,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     h1 {
-      margin: 0px;
+      margin: 0;
     }
 
   }
