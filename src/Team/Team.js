@@ -8,10 +8,11 @@ import styled from 'styled-components'
 
 const TeamStyled = styled.div `
   width: 100%;
-  height: 100%;
 
   background-color: white;
   margin: 92px auto 50px auto;
+
+  overflow: auto;
 
   h1 {
     text-align: center;
@@ -25,6 +26,13 @@ const TeamStyled = styled.div `
     text-align: center;
     font-weight: 200;
     color: rgba(0,0,0,.54);
+  }
+
+  .results-container{
+    height: 1000px;
+    max-height: calc(100% + 200px); 
+
+    overflow: auto;
   }
 `;
 
@@ -81,7 +89,7 @@ export default class Team extends Component {
         <h1>{data.name}</h1>
         <TeamLogoStyled src={data.logo}/>
         <h2>Games</h2>
-        <Results results={data.results} />
+        <Results results={data.results} className="team-results" />
       </TeamStyled>
     );
   }

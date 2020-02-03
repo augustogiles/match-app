@@ -7,8 +7,8 @@ import styled from 'styled-components'
 
 const WeekStyled = styled.div `
   width: 800px;
-  height: 1000px;
-  max-height: calc(100% - 200px);
+  height: 100%;
+  max-height: calc(100% - 240px);
 
   background-color: white;
   margin: 120px auto 50px auto;
