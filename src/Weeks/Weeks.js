@@ -4,6 +4,8 @@ import { Results } from '../Results/Results';
 import { fetch } from '../services/api';
 
 import { Loading } from '../Loading/Loading';
+import { NotFound } from '../NotFound/NotFound';
+
 import { weeksMock } from '../Data/mockData';
 
 import { WeekStyled, WeekHeaderStyled, WeekListStyled, WeekListItem, WeekBodyStyled } from './Weeks.styled';
@@ -12,7 +14,7 @@ export default class Weeks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: null,
       chosenWeek: this.getWeek() // TASK #2 - make matches start at 1 instead of 0
     };
   }
@@ -23,7 +25,7 @@ export default class Weeks extends Component {
   }
 
   calculeNewIndex(index){
-    if (index < 0) {
+    if (index === 0) {
       index = 0;
     } else if (index > 0) {
       index -= 1;
@@ -47,7 +49,6 @@ export default class Weeks extends Component {
     const oldIndex = this.state.chosenWeek;
     const newIndex = this.calculeNewIndex(parseInt(nextProps.match.params.index, 10));
 
-    console.log(oldIndex, newIndex)
     if (oldIndex !== newIndex) {
       this.setState({ chosenWeek: newIndex });
     }
@@ -55,25 +56,29 @@ export default class Weeks extends Component {
 
   render() {
     let { data, chosenWeek } = this.state;
-    if (!data.length) return <Loading/>;
+    if (!data) return <Loading/>;
 
     return (
-      <WeekStyled>
-        <WeekHeaderStyled>
-          <h1>Weeks</h1>
-          <WeekListStyled>
-            {this.state.data.map((week, weekNumber) => (
-              <WeekListItem key={weekNumber} selected={weekNumber === chosenWeek}>
-                <Link to={`/weeks/${weekNumber + 1}`}>{weekNumber + 1}</Link>
-              </WeekListItem>
-            ))}
-          </WeekListStyled>
-        </WeekHeaderStyled>
-        <WeekBodyStyled>
-          <h2>Week #{chosenWeek + 1}</h2>
-          <Results results={this.state.data[chosenWeek]} />
-        </WeekBodyStyled>
-      </WeekStyled>
+      ( !!data[chosenWeek] && chosenWeek < data.length) ?
+        <WeekStyled>
+          <WeekHeaderStyled>
+            <h1>Weeks</h1>
+            <WeekListStyled>
+              {this.state.data.map((week, weekNumber) => (
+                <WeekListItem key={weekNumber} selected={weekNumber === chosenWeek}>
+                  <Link to={`/weeks/${weekNumber + 1}`}>{weekNumber + 1}</Link>
+                </WeekListItem>
+              ))}
+            </WeekListStyled>
+          </WeekHeaderStyled>
+          <WeekBodyStyled>
+            <h2>Week #{chosenWeek + 1}</h2>
+            <Results results={this.state.data[chosenWeek]} />
+          </WeekBodyStyled>
+        </WeekStyled>
+      :
+        <NotFound/>
+
     );
   }
 }

@@ -13,7 +13,7 @@ const LoadingStyled = styled.div`
 
 `;
 
-const LoadingShadowStyled = styled.div`
+export const ShadowStyled = styled.div`
   position: fixed;
   height: 100%;
   width: 100%;
@@ -44,11 +44,11 @@ const LoadingSpinner = styled.div`
 
 export const Loading = () => {
   return (
-    <LoadingShadowStyled>
+    <ShadowStyled>
       <LoadingStyled> 
         <LoadingSpinner/>
         Loading ...
       </LoadingStyled>
-    </LoadingShadowStyled>
+    </ShadowStyled>
   );
 };

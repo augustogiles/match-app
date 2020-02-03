@@ -1,5 +1,4 @@
 import { chain, orderBy } from 'lodash';
-import {teamsMock, weeksMock} from './Data/mockData';
 
 const AWARDS = {
   "wins": 3,
@@ -97,8 +96,6 @@ function groupMatchesByTeam(teams, weeksMatches) {
 // TASK #4 - create a table of results
 export function computeTable(teams, weeksMatches) {
 
-  teams = !!teams ? teams : teamsMock ;
-  weeksMatches = !!weeksMatches ? weeksMatches : weeksMock ;
 
   let allMatchesByTeam = groupMatchesByTeam(teams, weeksMatches);
   let allTeamStats = allMatchesByTeam.reduce( (map, [teamName, teamMatches], teamId) => {
@@ -106,5 +103,5 @@ export function computeTable(teams, weeksMatches) {
     return map;
   }, {})
 
-  return orderBy(allTeamStats, ['points', 'gd', 'gc'], ['desc', 'desc', 'desc']);
+  return orderBy(allTeamStats, ['points', 'gd', 'gp'], ['desc', 'desc', 'desc']);
 }
