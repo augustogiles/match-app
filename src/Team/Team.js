@@ -1,52 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Results } from '../Results/Results' 
 
 import { fetch } from '../services/api' 
 import { computeTeamStats } from '../utils'
 
-import styled from 'styled-components'
-
-const TeamStyled = styled.div `
-  width: 100%;
-
-  background-color: white;
-  margin: 92px auto 50px auto;
-
-  overflow: hidden;
-
-  h1 {
-    text-align: center;
-    font-weight: 200;
-    color: rgba(0,0,0,.54);
-    margin: 12px 0px;
-    padding-top: 12px;
-  }
-
-  h2 {
-    text-align: center;
-    font-weight: 200;
-    color: rgba(0,0,0,.54);
-  }
-
-  .results-container{
-    height: 1000px;
-    max-height: calc(100% + 200px); 
-  }
-`;
-
-const TeamLogoStyled = styled.img `
-  margin: auto;
-  display: block;
-`;
-
-const TeamResultsContainerStyled = styled.div `
-  width: 100%;
-  height: 560px;
-  position: fixed;
-
-  background-color: white;
-`
-
+import { TeamStyled, TeamLogoStyled, TeamResultsContainerStyled } from './Team.styled'
 
 export default class Team extends Component {
   state = {
