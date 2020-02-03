@@ -62,12 +62,23 @@ const WeekListStyled = styled.ul `
 `;
 
 const WeekListItem = styled.li `
-  float: left;
-  padding: 12px 16px;
+  height: 100%;
 
   color: ${({selected}) => selected ? '#ffffff;' : '#dddddd;'};
-  border-bottom: ${({selected}) => selected ? '2px solid #ffffff;' : 'none;'};
+  border-bottom: ${({selected}) => selected ? '4px solid #ffffff;' : 'none;'};
   background-color: ${({selected}) => selected ? 'rgba(0,0,0,.1);' : 'inherit;'};
+
+  a {
+    display: block;
+    text-align: center;
+    padding: ${({selected}) => selected ? '34px 16px 14px;' : '32px 16px 14px;'};
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.1);
+    color: #ffffff;
+  }
 `;
 
 const WeekBodyStyled = styled.div `
@@ -123,14 +134,14 @@ export default class Weeks extends Component {
           <h1>Weeks</h1>
           <WeekListStyled>
             {this.state.data.map((week, weekNumber) => (
-              <WeekListItem key={weekNumber}>
+              <WeekListItem key={weekNumber} selected={weekNumber === chosenWeek}>
                 <Link to={`/weeks/${weekNumber}`}>{weekNumber + 1}</Link>
               </WeekListItem>
             ))}
           </WeekListStyled>
         </WeekHeaderStyled>
         <WeekBodyStyled>
-          <h2>Results for week #{chosenWeek + 1}</h2>
+          <h2>Week #{chosenWeek + 1}</h2>
           <Results results={this.state.data[chosenWeek]} />
         </WeekBodyStyled>
       </WeekStyled>
