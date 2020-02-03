@@ -12,7 +12,7 @@ const TeamStyled = styled.div `
   background-color: white;
   margin: 92px auto 50px auto;
 
-  overflow: auto;
+  overflow: hidden;
 
   h1 {
     text-align: center;
@@ -32,7 +32,7 @@ const TeamStyled = styled.div `
     height: 1000px;
     max-height: calc(100% + 200px); 
 
-    overflow: auto;
+    /* overflow: auto; */
   }
 `;
 
@@ -40,6 +40,15 @@ const TeamLogoStyled = styled.img `
   margin: auto;
   display: block;
 `;
+
+const TeamResultsContainerStyled = styled.div `
+  width: 100%;
+  height: 560px;
+  position: fixed;
+
+  background-color: white;
+`
+
 
 export default class Team extends Component {
   state = {
@@ -88,7 +97,9 @@ export default class Team extends Component {
         <h1>{data.name}</h1>
         <TeamLogoStyled src={data.logo}/>
         <h2>Games</h2>
-        <Results results={data.results} className="team-results" />
+        <TeamResultsContainerStyled>
+          <Results results={data.results} className="team-results" />
+        </TeamResultsContainerStyled>
       </TeamStyled>
     );
   }
