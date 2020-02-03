@@ -55,7 +55,6 @@ export default class Team extends Component {
         stats: computeTeamStats(data.id, data.results)
       })
     }, err => {
-      console.log("alo", err)
       this.setState({
         data: null,
         stats: computeTeamStats(null, null)
