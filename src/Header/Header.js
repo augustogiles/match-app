@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { HeaderStyled, HeaderMenuItem } from './Header.styled'
+import { HeaderStyled, HeaderMenuItem } from './Header.styled';
 
 export const Header = () => {
   let { href } = window.location

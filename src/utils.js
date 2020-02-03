@@ -1,5 +1,5 @@
 import { chain, orderBy } from 'lodash';
-import {teamsMock, weeksMock} from './Data/mockData'
+import {teamsMock, weeksMock} from './Data/mockData';
 
 const AWARDS = {
   "wins": 3,

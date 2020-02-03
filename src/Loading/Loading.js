@@ -29,7 +29,7 @@ const rotate = keyframes`
   100% {
     transform: rotate(360deg);
   }
-`
+`;
 
 const LoadingSpinner = styled.div`
   margin: 0 auto 20px;
@@ -51,4 +51,4 @@ export const Loading = () => {
       </LoadingStyled>
     </LoadingShadowStyled>
   );
-}
+};

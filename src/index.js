@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Routes } from './routes';
 import { HashRouter } from 'react-router-dom';
 import { Header } from './Header/Header';
-import { GlobalStyle } from './Styles/GlobalStyle'
+import { GlobalStyle } from './Styles/GlobalStyle';
 
 import styled from 'styled-components';
 
@@ -13,7 +13,7 @@ const MainStyled  = styled.div`
   height: 100%;
   overflow: auto;
 
-` ;
+`;
 
 const Main = () => (
   <HashRouter>

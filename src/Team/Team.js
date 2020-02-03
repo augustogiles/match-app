@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Results } from '../Results/Results' 
+import { Results } from '../Results/Results';
 
-import { fetch } from '../services/api' 
-import { computeTeamStats } from '../utils'
+import { fetch } from '../services/api';
+import { computeTeamStats } from '../utils';
 
-import { TeamStyled, TeamLogoStyled, TeamResultsContainerStyled } from './Team.styled'
+import { TeamStyled, TeamLogoStyled, TeamResultsContainerStyled } from './Team.styled';
 
 export default class Team extends Component {
   state = {
