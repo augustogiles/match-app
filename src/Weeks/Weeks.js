@@ -20,7 +20,7 @@ const WeekStyled = styled.div `
   border-collapse: collapse;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.20);
 
-  overflow: auto;
+  overflow: hidden;
 
   h2 {
     text-align: center;
@@ -31,16 +31,21 @@ const WeekStyled = styled.div `
 
 const WeekHeaderStyled = styled.div `
   background-color: #999999;
-  width: 100%;
+  width: 800px;
+  height: 80px;
+  
+  position: fixed;
+  left: 50%;
+  margin-left: -400px;
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   
   display: flex;
   align-items: center;
+  justify-content: center;
 
   h1 {
-    float: left;
     padding: 12px 16px;
     font-weight: 400;
 
@@ -49,7 +54,11 @@ const WeekHeaderStyled = styled.div `
 `;
 
 const WeekListStyled = styled.ul `
-
+  width: calc(100% - 160px);
+  display: flex;
+  align-items: center;
+  height: 100%;
+  overflow: auto;
 `;
 
 const WeekListItem = styled.li `
@@ -59,6 +68,13 @@ const WeekListItem = styled.li `
   color: ${({selected}) => selected ? '#ffffff;' : '#dddddd;'};
   border-bottom: ${({selected}) => selected ? '2px solid #ffffff;' : 'none;'};
   background-color: ${({selected}) => selected ? 'rgba(0,0,0,.1);' : 'inherit;'};
+`;
+
+const WeekBodyStyled = styled.div `
+  width: 800px;
+  height: calc(100% - 80px);
+  margin-top: 80px;
+  overflow: auto;
 `;
 
 export default class Weeks extends Component {
@@ -113,8 +129,10 @@ export default class Weeks extends Component {
             ))}
           </WeekListStyled>
         </WeekHeaderStyled>
-        <h2>Results for week #{chosenWeek + 1}</h2>
-        <Results results={this.state.data[chosenWeek]} />
+        <WeekBodyStyled>
+          <h2>Results for week #{chosenWeek + 1}</h2>
+          <Results results={this.state.data[chosenWeek]} />
+        </WeekBodyStyled>
       </WeekStyled>
     );
   }
