@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { computeTable } from '../utils';
 import { fetch } from '../services/api';
 
+import {Loading} from '../Loading/Loading'
 import {TableStyled, TableRowStyled} from './Table.styled'
 
 const TableObject = (objects, onRowClick) => {
@@ -48,7 +49,7 @@ export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      table: [],
+      table: null,
     };
   }
 
@@ -73,7 +74,7 @@ export default class Table extends Component {
 
   render() {
     const t = this.state.table;
-    if (!t) return <div>loading...</div>;
+    if (!t) return <Loading/>;
 
     return TableObject(t, this.onRowClick);
   }
