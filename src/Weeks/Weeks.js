@@ -19,9 +19,16 @@ export default class Weeks extends Component {
 
   getWeek() {
     let index = parseInt(this.props.match.params.index, 10)
-    if (index > 0) {
+    return this.calculeNewIndex(index);
+  }
+
+  calculeNewIndex(index){
+    if (index < 0) {
+      index = 0;
+    } else if (index > 0) {
       index -= 1;
     }
+    
     return index;
   }
 
@@ -37,8 +44,10 @@ export default class Weeks extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const oldIndex = this.state.data.id;
-    const newIndex = parseInt(nextProps.match.params.index, 10);
+    const oldIndex = this.state.chosenWeek;
+    const newIndex = this.calculeNewIndex(parseInt(nextProps.match.params.index, 10));
+
+    console.log(oldIndex, newIndex)
     if (oldIndex !== newIndex) {
       this.setState({ chosenWeek: newIndex });
     }
@@ -55,7 +64,7 @@ export default class Weeks extends Component {
           <WeekListStyled>
             {this.state.data.map((week, weekNumber) => (
               <WeekListItem key={weekNumber} selected={weekNumber === chosenWeek}>
-                <Link to={`/weeks/${weekNumber}`}>{weekNumber + 1}</Link>
+                <Link to={`/weeks/${weekNumber + 1}`}>{weekNumber + 1}</Link>
               </WeekListItem>
             ))}
           </WeekListStyled>

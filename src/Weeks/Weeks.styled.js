@@ -54,7 +54,7 @@ export const WeekListStyled = styled.ul `
 `;
 
 export const WeekListItem = styled.li `
-  height: 100%;
+  height: 76px;
 
   color: ${({selected}) => selected ? '#ffffff;' : '#dddddd;'};
   border-bottom: ${({selected}) => selected ? '4px solid #ffffff;' : 'none;'};
