@@ -41,7 +41,7 @@ export const TableStyled = styled.table `
 
 export const TableRowStyled = styled.tr`
   transition-property: box-shadow margin-top filter;
-  -o-transition-duration: .1s;
+  transition-duration: .2s;
   &:hover {
     cursor: pointer;
     background-color: #dddddd;
