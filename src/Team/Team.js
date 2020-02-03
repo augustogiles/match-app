@@ -31,8 +31,6 @@ const TeamStyled = styled.div `
   .results-container{
     height: 1000px;
     max-height: calc(100% + 200px); 
-
-    /* overflow: auto; */
   }
 `;
 
