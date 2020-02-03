@@ -4,6 +4,9 @@ import { Results } from '../Results/Results'
 import { fetch } from '../services/api'
 
 import styled from 'styled-components'
+import {Loading} from '../Loading/Loading'
+
+import {weeksMock} from '../Data/mockData'
 
 const WeekStyled = styled.div `
   width: 800px;
@@ -76,7 +79,14 @@ export default class Weeks extends Component {
   }
 
   componentDidMount(){
-    fetch("/weeks").then(data => this.setState({ data: data }));
+    fetch("/weeks").then(data => {
+      this.setState({ data: data })
+    }, 
+    err => {
+      this.setState({
+        data: weeksMock,
+      })
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -88,8 +98,8 @@ export default class Weeks extends Component {
   }
 
   render() {
-    let { data } = this.state;
-    if (!data.length) return <div>loading...</div>;
+    let { data, chosenWeek } = this.state;
+    if (!data.length) return <Loading/>;
 
     return (
       <WeekStyled>
@@ -98,13 +108,13 @@ export default class Weeks extends Component {
           <WeekListStyled>
             {this.state.data.map((week, weekNumber) => (
               <WeekListItem key={weekNumber}>
-                <Link to={`/weeks/${weekNumber}`}>{weekNumber}</Link>
+                <Link to={`/weeks/${weekNumber}`}>{weekNumber + 1}</Link>
               </WeekListItem>
             ))}
           </WeekListStyled>
         </WeekHeaderStyled>
-        <h2>Results for week #{this.state.chosenWeek}</h2>
-        <Results results={this.state.data[this.state.chosenWeek]} />
+        <h2>Results for week #{chosenWeek + 1}</h2>
+        <Results results={this.state.data[chosenWeek]} />
       </WeekStyled>
     );
   }
