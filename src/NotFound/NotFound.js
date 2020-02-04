@@ -18,10 +18,29 @@ const NotFoundStyled = styled.div`
 
 `;
 
-export const NotFound = () => {
+const GenericStyled = styled.h1 `
+  position: fixed;
+  
+  text-align: center;
+  color: white;
+
+  top: calc(50% - 76px);
+  left: calc(50% - 180px);
+
+`;
+
+export const NotFound = ({generic}) => {
   return (
     <ShadowStyled>
-      <NotFoundStyled/>
+      {(!generic) ? 
+          <NotFoundStyled/>
+        :
+          <GenericStyled>
+            Something went wrong! <br/>
+            Please try again.
+          </GenericStyled>
+      }
+      
     </ShadowStyled>
   );
 };
