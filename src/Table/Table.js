@@ -3,6 +3,7 @@ import { computeTable } from '../utils';
 import { fetch } from '../services/api';
 
 import {Loading} from '../Loading/Loading'
+import { NotFound } from '../NotFound/NotFound';
 import {TableStyled, TableRowStyled} from './Table.styled'
 
 const TableObject = (objects, onRowClick) => {
@@ -63,7 +64,7 @@ export default class Table extends Component {
       });
     }, err => {
       this.setState({
-        table: computeTable(null, null)
+        table: null
       });
     });
   }
@@ -73,9 +74,11 @@ export default class Table extends Component {
   }
 
   render() {
-    const t = this.state.table;
-    if (!t) return <Loading/>;
+    const { table } = this.state;
 
-    return TableObject(t, this.onRowClick);
+    if (!table) return <NotFound generic={true}/>;
+    if (table.length === 0 ) return <Loading/>;
+
+    return TableObject(table, this.onRowClick);
   }
 }

@@ -6,15 +6,13 @@ import { fetch } from '../services/api';
 import { Loading } from '../Loading/Loading';
 import { NotFound } from '../NotFound/NotFound';
 
-import { weeksMock } from '../Data/mockData';
-
 import { WeekStyled, WeekHeaderStyled, WeekListStyled, WeekListItem, WeekBodyStyled } from './Weeks.styled';
 
 export default class Weeks extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: null,
+      data: [],
       chosenWeek: this.getWeek() // TASK #2 - make matches start at 1 instead of 0
     };
   }
@@ -40,7 +38,7 @@ export default class Weeks extends Component {
     }, 
     err => {
       this.setState({
-        data: weeksMock,
+        data: null,
       })
     });
   }
@@ -56,7 +54,8 @@ export default class Weeks extends Component {
 
   render() {
     let { data, chosenWeek } = this.state;
-    if (!data) return <Loading/>;
+    if (!data) return <NotFound generic={true}/>;
+    if (data.length === 0) return <Loading/>;
 
     return (
       ( !!data[chosenWeek] && chosenWeek < data.length) ?

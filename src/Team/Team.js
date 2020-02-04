@@ -4,6 +4,9 @@ import { Results } from '../Results/Results';
 import { fetch } from '../services/api';
 import { computeTeamStats } from '../utils';
 
+import {Loading} from '../Loading/Loading'
+import { NotFound } from '../NotFound/NotFound';
+
 import { TeamStyled, TeamLogoStyled, TeamResultsContainerStyled } from './Team.styled';
 
 export default class Team extends Component {
@@ -22,7 +25,7 @@ export default class Team extends Component {
     }, err => {
       this.setState({
         data: null,
-        stats: computeTeamStats(null, null)
+        stats: null
       })
     });
 
@@ -45,8 +48,9 @@ export default class Team extends Component {
   }
 
   render() {
-    const { data } = this.state;
-    if (!data) return <div>loading...</div>;
+    const { data, stats } = this.state;
+    if (!data) return <NotFound generic={true}/>;
+    if (!Object.entries(stats).length) return <Loading/>;
 
     return (
       <TeamStyled className="team">
